@@ -4,7 +4,7 @@ import { HERO_IMAGES, NEWS_ITEMS } from '../mock';
 
 const News = () => {
   const featured = NEWS_ITEMS.find((n) => n.featured) || NEWS_ITEMS[0];
-  const gallery = featured.gallery || [];
+  const galleryItems = NEWS_ITEMS.filter((n) => n.gallery && n.id !== featured.id);
   const rest = NEWS_ITEMS.filter((n) => n.id !== featured.id && !n.gallery);
 
   return (
@@ -40,8 +40,21 @@ const News = () => {
             </div>
           </div>
 
-          {/* Savannah story with gallery */}
-          {NEWS_ITEMS.filter((n) => n.gallery).map((n) => (
+          {/* Featured gallery (if featured has gallery) */}
+          {featured.gallery && featured.gallery.length > 0 && (
+            <div className="mt-10">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {featured.gallery.map((g, i) => (
+                  <div key={i} className="asi-image-frame aspect-square bg-gray-100">
+                    <img src={g} alt={`${featured.title} ${i + 1}`} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Other stories with gallery */}
+          {galleryItems.map((n) => (
             <div key={n.id} className="mt-20">
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">{n.title}</h3>
               <p className="text-gray-700 text-[15px] leading-relaxed mb-6 max-w-4xl">{n.excerpt}</p>

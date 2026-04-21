@@ -291,10 +291,29 @@ export const PROJECTS = [
 
 export const NEWS_ITEMS = [
   {
+    id: 'var-council-bcn-2025',
+    date: '21-22 Octubre 2025',
+    title: 'VAR EUR COUNCIL Meeting en Barcelona — "Gaudí City"',
+    featured: true,
+    image: '/news/var-council-1.jpg',
+    gallery: [
+      '/news/var-council-1.jpg',
+      '/news/var-council-sagrada.jpg',
+      '/news/var-council-room.jpg'
+    ],
+    excerpt: 'Se celebró la reunión anual del VAR EUR COUNCIL en las oficinas de Automatic Solutions Iberia en Barcelona, donde se mantuvieron los debates técnicos y de visión de mercados como seguimiento de los grupos de trabajo continuados con AUTOMATED LOGIC fábrica y distribución. También se aprovechó para compartir un tiempo de ocio visitando la basílica de la Sagrada Familia, obra del gran arquitecto modernista Antonio Gaudí.'
+  },
+  {
+    id: 'uvic-visit-2025',
+    date: '20 Octubre 2025',
+    title: 'Visita al Campus UVIC del Managing Director Carrier Software & Controls Solutions, Axel Reichert',
+    image: '/news/uvic-visit.jpg',
+    excerpt: 'Automatic Solutions Iberia tuvo el placer de presentar una de sus implantaciones más emblemáticas, el Campus de la Universidad de Vic (UVIC), a Axel Reichert, el director global de la división de controles del grupo Carrier. La reunión fue tutelada por la ingeniería del proyecto Colomer Rifa y por la propiedad en representación del departamento de ingeniería y mantenimiento. Este trinomio abarca la totalidad de percepciones y sensibilidades de las necesidades de un campus tan dinámico como el visitado y tuvimos la oportunidad de aprender de experiencias y futuras implantaciones de mejora.'
+  },
+  {
     id: 'var-eur-2024',
     date: '17-18 Septiembre 2024',
     title: 'VAR EUR COUNCIL AUTOMATED LOGIC',
-    featured: true,
     image: 'http://www.automaticsolutionsiberia.com/assets/images/processed-13a77108-170d-44f5-be94-b003cbfbad35-002-1322x1083.jpeg',
     excerpt: 'Los pasados 17 y 18 de septiembre de 2024 la lista constituida de miembros del Consejo de ALC-EUR celebró la reunión anual para debatir y disfrutar de experiencias laborales.'
   },
