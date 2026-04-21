@@ -96,9 +96,9 @@ const Home = () => {
                   productos Automated Logic en España y Portugal.
                 </p>
                 <p>
-                  Junto a su propia red de integradores por la península ibérica ha conseguido tener una capilaridad teniendo
-                  oficina técnica en <strong>Madrid, Barcelona, Palma de Mallorca, Jaén, Girona y Lisboa</strong>, desde donde
-                  puede afrontar proyectos de automatización y control de cualquier dimensión y dificultad.
+                  Junto a su propia red de integradores por la península ibérica ha conseguido tener una gran capilaridad con
+                  oficina técnica en <strong>Barcelona</strong>, desde donde puede afrontar proyectos de automatización y
+                  control de cualquier dimensión y dificultad.
                 </p>
               </div>
             </div>

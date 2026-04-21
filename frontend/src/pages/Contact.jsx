@@ -88,8 +88,8 @@ const Contact = () => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Oficinas técnicas</h3>
-              <div className="grid grid-cols-2 gap-2">
+              <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Oficina técnica</h3>
+              <div className="grid grid-cols-1 gap-2">
                 {OFFICES.map((o) => (
                   <div
                     key={o}

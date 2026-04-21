@@ -1,7 +1,7 @@
 // Mock data for Automatic Solutions Iberia clone
 
 export const OFFICES = [
-  'Madrid', 'Barcelona', 'Palma de Mallorca', 'Jaén', 'Girona', 'Lisboa'
+  'Barcelona'
 ];
 
 export const SERVICES = [
@@ -307,7 +307,7 @@ export const NEWS_ITEMS = [
     id: 'uvic-visit-2025',
     date: '20 Octubre 2025',
     title: 'Visita al Campus UVIC del Managing Director Carrier Software & Controls Solutions, Axel Reichert',
-    image: '/news/uvic-visit.jpg',
+    image: '/news/uvic-campus.jpg',
     excerpt: 'Automatic Solutions Iberia tuvo el placer de presentar una de sus implantaciones más emblemáticas, el Campus de la Universidad de Vic (UVIC), a Axel Reichert, el director global de la división de controles del grupo Carrier. La reunión fue tutelada por la ingeniería del proyecto Colomer Rifa y por la propiedad en representación del departamento de ingeniería y mantenimiento. Este trinomio abarca la totalidad de percepciones y sensibilidades de las necesidades de un campus tan dinámico como el visitado y tuvimos la oportunidad de aprender de experiencias y futuras implantaciones de mejora.'
   },
   {

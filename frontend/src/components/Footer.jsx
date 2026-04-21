@@ -32,7 +32,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold tracking-wider mb-4 uppercase">Oficinas</h4>
+          <h4 className="text-sm font-semibold tracking-wider mb-4 uppercase">Oficina</h4>
           <ul className="space-y-2 text-sm text-white/75">
             {OFFICES.map((o) => (
               <li key={o} className="flex items-center gap-2">
