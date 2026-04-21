@@ -31,17 +31,12 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-5 lg:px-8 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 border-2 border-white flex items-center justify-center">
-            <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-              <path d="M12 2 L22 20 L2 20 Z" />
-            </svg>
-          </div>
-          <div className="text-white leading-tight">
-            <div className="font-semibold text-sm tracking-wide">Automatic</div>
-            <div className="font-semibold text-sm tracking-wide">Solutions</div>
-            <div className="font-semibold text-sm tracking-wide">Iberia</div>
-          </div>
+        <Link to="/" className="flex items-center group">
+          <img
+            src="/logo/asi-logo.png"
+            alt="Automatic Solutions Iberia"
+            className="h-12 md:h-14 w-auto object-contain"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8">

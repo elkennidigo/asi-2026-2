@@ -8,16 +8,12 @@ const Footer = () => {
     <footer className="bg-[#0f1947] text-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 border-2 border-white flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-                <path d="M12 2 L22 20 L2 20 Z" />
-              </svg>
-            </div>
-            <div className="font-semibold leading-tight">
-              <div>Automatic</div>
-              <div>Solutions Iberia</div>
-            </div>
+          <div className="mb-4">
+            <img
+              src="/logo/asi-logo.png"
+              alt="Automatic Solutions Iberia"
+              className="h-16 w-auto object-contain"
+            />
           </div>
           <p className="text-sm text-white/70 leading-relaxed">
             MasterReseller y agente autorizado de Automated Logic en España y Portugal desde 2018.
