@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, HardDrive, Cpu, Activity, ChevronDown } from 'lucide-react';
+import { Save, HardDrive, Cpu, Activity } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -7,16 +7,30 @@ import {
   AccordionTrigger,
 } from '../components/ui/accordion';
 import { HERO_IMAGES, SOFTWARE_PRODUCTS, HARDWARE_PRODUCTS, CONTROLLER_PRODUCTS, SENSOR_PRODUCTS } from '../mock';
-
-const CATEGORIES = [
-  { id: 'software', name: 'SOFTWARE', Icon: Save, items: SOFTWARE_PRODUCTS },
-  { id: 'hardware', name: 'HARDWARE', Icon: HardDrive, items: HARDWARE_PRODUCTS },
-  { id: 'controllers', name: 'CONTROLADORES Y MÓDULOS I/O', Icon: Cpu, items: CONTROLLER_PRODUCTS },
-  { id: 'sensors', name: 'SENSORES', Icon: Activity, items: SENSOR_PRODUCTS },
-];
+import { useLanguage } from '../i18n/LanguageContext';
+import { PRODUCTS_EN } from '../i18n/mockEn';
 
 const Products = () => {
+  const { t, lang } = useLanguage();
   const [active, setActive] = useState('software');
+
+  // Resolve localized titles/content: in EN use the parallel array when available
+  const localize = (id, items) => {
+    if (lang === 'en' && PRODUCTS_EN[id]) {
+      return items.map((it, idx) => ({
+        title: PRODUCTS_EN[id][idx]?.title ?? it.title,
+        content: PRODUCTS_EN[id][idx]?.content ?? it.content,
+      }));
+    }
+    return items;
+  };
+
+  const CATEGORIES = [
+    { id: 'software', name: t('products.categories.software'), Icon: Save, items: localize('software', SOFTWARE_PRODUCTS) },
+    { id: 'hardware', name: t('products.categories.hardware'), Icon: HardDrive, items: localize('hardware', HARDWARE_PRODUCTS) },
+    { id: 'controllers', name: t('products.categories.controllers'), Icon: Cpu, items: localize('controllers', CONTROLLER_PRODUCTS) },
+    { id: 'sensors', name: t('products.categories.sensors'), Icon: Activity, items: localize('sensors', SENSOR_PRODUCTS) },
+  ];
 
   const scrollTo = (id) => {
     setActive(id);
@@ -29,19 +43,17 @@ const Products = () => {
 
   return (
     <div className="pt-[72px]">
-      {/* Hero */}
       <section
         className="asi-hero asi-grain"
         style={{ backgroundImage: `url(${HERO_IMAGES.products})`, minHeight: '320px' }}
       >
         <div className="max-w-7xl mx-auto w-full px-5 lg:px-8 pb-12 pt-20">
           <h1 className="text-white font-bold text-5xl md:text-6xl tracking-tight text-right">
-            PRODUCTOS
+            {t('products.heroTitle')}
           </h1>
         </div>
       </section>
 
-      {/* Category nav */}
       <section className="bg-[#1a2980]">
         <div className="max-w-7xl mx-auto px-5 lg:px-8 py-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
@@ -65,7 +77,6 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Sections */}
       <div className="bg-white">
         {CATEGORIES.map(({ id, name, items }) => (
           <section key={id} id={id} className="asi-section border-b border-gray-100">

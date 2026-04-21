@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Globe, ShoppingCart } from 'lucide-react';
 import { Button } from './ui/button';
-
-const NAV_ITEMS = [
-  { to: '/', label: 'INICIO' },
-  { to: '/productos', label: 'PRODUCTOS' },
-  { to: '/proyectos', label: 'PROYECTOS' },
-  { to: '/noticias', label: 'NOTICIAS' },
-  { to: '/contacto', label: 'CONTACTO' },
-];
+import { useLanguage } from '../i18n/LanguageContext';
 
 const Navbar = () => {
+  const { t, toggle, lang } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  const NAV_ITEMS = [
+    { to: '/', label: t('nav.home') },
+    { to: '/productos', label: t('nav.products') },
+    { to: '/proyectos', label: t('nav.projects') },
+    { to: '/noticias', label: t('nav.news') },
+    { to: '/contacto', label: t('nav.contact') },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -57,14 +59,16 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-5">
           <button className="flex items-center gap-1.5 text-white text-sm font-semibold tracking-wider hover:text-white/80 transition-colors">
             <ShoppingCart className="w-4 h-4" />
-            TIENDA
+            {t('nav.shop')}
           </button>
           <Button
+            onClick={toggle}
             variant="outline"
             className="rounded-full border-white/80 text-[#1a2980] bg-white hover:bg-white/90 hover:text-[#131f5e] font-semibold text-xs px-5"
+            aria-label="Toggle language"
           >
             <Globe className="w-3.5 h-3.5 mr-1.5" />
-            ENGLISH
+            {t('langButtonLabel')}
           </Button>
         </div>
 
@@ -77,7 +81,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div className="lg:hidden bg-[#131f5e] border-t border-white/10">
           <div className="px-5 py-4 flex flex-col gap-3">
@@ -96,11 +99,12 @@ const Navbar = () => {
               </NavLink>
             ))}
             <Button
+              onClick={toggle}
               variant="outline"
               className="rounded-full border-white text-[#1a2980] bg-white hover:bg-white/90 w-fit mt-2"
             >
               <Globe className="w-4 h-4 mr-2" />
-              ENGLISH
+              {t('langButtonLabel')}
             </Button>
           </div>
         </div>

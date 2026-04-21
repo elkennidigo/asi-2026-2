@@ -2,18 +2,23 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Package, FolderKanban, Newspaper, Mail, CheckCircle2, Play, MapPin } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
-import { SERVICES, PARTNERS, HERO_IMAGES, TECHNICAL_OFFICES } from '../mock';
+import { PARTNERS, HERO_IMAGES, TECHNICAL_OFFICES } from '../mock';
 import { Dialog, DialogContent, DialogTrigger } from '../components/ui/dialog';
-
-const CARDS = [
-  { to: '/productos', label: 'PRODUCTOS', Icon: Package },
-  { to: '/proyectos', label: 'PROYECTOS', Icon: FolderKanban },
-  { to: '/noticias', label: 'NOTICIAS', Icon: Newspaper },
-  { to: '/contacto', label: 'CONTACTO', Icon: Mail },
-];
+import { useLanguage } from '../i18n/LanguageContext';
 
 const Home = () => {
+  const { t } = useLanguage();
   const [videoOpen, setVideoOpen] = useState(false);
+
+  const CARDS = [
+    { to: '/productos', label: t('nav.products'), Icon: Package },
+    { to: '/proyectos', label: t('nav.projects'), Icon: FolderKanban },
+    { to: '/noticias', label: t('nav.news'), Icon: Newspaper },
+    { to: '/contacto', label: t('nav.contact'), Icon: Mail },
+  ];
+
+  const heroTitleLines = t('home.heroTitle') || [];
+  const services = t('services') || [];
 
   return (
     <div className="pt-[72px]">
@@ -28,9 +33,16 @@ const Home = () => {
         <div className="max-w-7xl mx-auto w-full px-5 lg:px-8 pb-28 pt-24">
           <div className="max-w-2xl ml-auto text-right">
             <h1 className="text-white font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-              Automatic<br />Solutions<br />Iberia
+              {Array.isArray(heroTitleLines)
+                ? heroTitleLines.map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < heroTitleLines.length - 1 && <br />}
+                    </React.Fragment>
+                  ))
+                : heroTitleLines}
             </h1>
-            <p className="text-white/90 text-lg mt-6 font-light">Bienvenidos a nuestro sitio web.</p>
+            <p className="text-white/90 text-lg mt-6 font-light">{t('home.heroSubtitle')}</p>
           </div>
         </div>
       </section>
@@ -81,25 +93,13 @@ const Home = () => {
           <div className="grid lg:grid-cols-2 gap-14 items-start">
             <div>
               <div className="inline-block px-3 py-1 bg-[#1a2980]/10 text-[#1a2980] text-xs font-semibold tracking-wider rounded mb-5">
-                SOBRE NOSOTROS
+                {t('home.aboutBadge')}
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#1a2980] mb-8">¿Qué hacemos?
-              </h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#1a2980] mb-8">{t('home.aboutTitle')}</h2>
               <div className="space-y-5 text-[15px] text-gray-700 leading-relaxed">
-                <p>
-                  <strong>Automatic Solutions Iberia (ASI)</strong> se constituye en el 2018 por varios ingenieros provenientes
-                  del sector de la automatización y control con décadas de experiencia en proyectos de cierta envergadura o
-                  criticidad técnica.
-                </p>
-                <p>
-                  Desde su constitución ha tenido el objetivo de actuar como <em>MasterReseller</em> y agente autorizado de los
-                  productos Automated Logic en España y Portugal.
-                </p>
-                <p>
-                  Junto a su propia red de integradores por la península ibérica ha conseguido tener una gran capilaridad, con
-                  oficinas técnicas en <strong>Madrid, Barcelona, Palma de Mallorca, Jaén, Girona y Lisboa</strong>, desde
-                  donde puede afrontar proyectos de automatización y control de cualquier dimensión y dificultad.
-                </p>
+                <p>{t('home.aboutP1')}</p>
+                <p>{t('home.aboutP2')}</p>
+                <p>{t('home.aboutP3')}</p>
               </div>
             </div>
 
@@ -114,23 +114,18 @@ const Home = () => {
                   />
                 </div>
                 <div className="bg-[#1a2980] text-white text-center py-3 text-sm font-medium">
-                  Tech room — Datacenter
+                  {t('home.techRoomCaption')}
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Services list */}
           <div className="mt-16">
-            <h3 className="text-2xl font-bold text-[#1a2980] mb-6">
-              ASI cubre todas las necesidades del proyecto
-            </h3>
-            <p className="text-gray-600 mb-8 max-w-3xl">
-              Ayudamos a nuestros integradores a cumplir con los más altos niveles de exigencia:
-            </p>
+            <h3 className="text-2xl font-bold text-[#1a2980] mb-6">{t('home.servicesTitle')}</h3>
+            <p className="text-gray-600 mb-8 max-w-3xl">{t('home.servicesLead')}</p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {SERVICES.map((s) => (
-                <div key={s} className="flex items-start gap-3 bg-white p-4 rounded border border-gray-100 hover:border-[#1a2980]/30 transition-colors">
+              {services.map((s, i) => (
+                <div key={i} className="flex items-start gap-3 bg-white p-4 rounded border border-gray-100 hover:border-[#1a2980]/30 transition-colors">
                   <CheckCircle2 className="w-5 h-5 text-[#1a2980] flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-gray-800">{s}</span>
                 </div>
@@ -143,10 +138,8 @@ const Home = () => {
       {/* Video section */}
       <section className="bg-[#0f1947] py-20">
         <div className="max-w-5xl mx-auto px-5 lg:px-8 text-center">
-          <h3 className="text-white text-3xl md:text-4xl font-bold mb-4">
-            We Are Automated Logic
-          </h3>
-          <p className="text-white/70 mb-8">We Make Buildings Better.</p>
+          <h3 className="text-white text-3xl md:text-4xl font-bold mb-4">{t('home.videoTitle')}</h3>
+          <p className="text-white/70 mb-8">{t('home.videoSubtitle')}</p>
 
           <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
             <DialogTrigger asChild>
@@ -187,14 +180,10 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-5 lg:px-8">
           <div className="text-center mb-12">
             <div className="inline-block px-3 py-1 bg-[#1a2980]/10 text-[#1a2980] text-xs font-semibold tracking-wider rounded mb-4">
-              PRESENCIA IBÉRICA
+              {t('home.officesBadge')}
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-3">
-              Oficinas técnicas
-            </h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Red propia de ingeniería con capilaridad en la península ibérica para atender proyectos en cualquier localización.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-3">{t('home.officesTitle')}</h2>
+            <p className="text-gray-600 max-w-xl mx-auto">{t('home.officesLead')}</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -216,18 +205,13 @@ const Home = () => {
       {/* CTA */}
       <section className="bg-white asi-section">
         <div className="max-w-5xl mx-auto px-5 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-5">
-            ¿Tiene un proyecto en mente?
-          </h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Contacte con nuestro equipo técnico para recibir un asesoramiento personalizado sobre su proyecto de
-            automatización y control de edificios.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-5">{t('home.ctaTitle')}</h2>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">{t('home.ctaText')}</p>
           <Link
             to="/contacto"
             className="inline-flex items-center gap-2 bg-[#1a2980] text-white px-8 py-3.5 text-sm font-semibold tracking-wider hover:bg-[#131f5e] transition-colors"
           >
-            CONTACTAR <ArrowRight className="w-4 h-4" />
+            {t('home.ctaButton')} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

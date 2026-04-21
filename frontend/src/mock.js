@@ -16,6 +16,7 @@ export const MAIN_OFFICE = {
   postalCode: '08027',
   city: 'Barcelona',
   country: 'España',
+  country_en: 'Spain',
   lat: 41.423829,
   lng: 2.1905971,
   mapsUrl: 'https://maps.app.goo.gl/KNWHtVgdMp88ycms9'

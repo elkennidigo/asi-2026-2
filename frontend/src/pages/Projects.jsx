@@ -1,29 +1,53 @@
 import React, { useState, useMemo } from 'react';
 import { MapPin, Calendar, ChevronRight, X, Server, Hotel, Wind, LayoutGrid } from 'lucide-react';
 import { HERO_IMAGES, PROJECTS, PROJECT_CATEGORIES } from '../mock';
+import { useLanguage } from '../i18n/LanguageContext';
+import { PROJECTS_EN } from '../i18n/mockEn';
 
 const CATEGORY_ICONS = {
   all: LayoutGrid,
   critical: Server,
   hospitality: Hotel,
-  iaq: Wind
+  iaq: Wind,
 };
 
 const Projects = () => {
+  const { t, lang } = useLanguage();
   const [activeCat, setActiveCat] = useState('all');
   const [expandedId, setExpandedId] = useState(null);
 
+  // Localize a project's text content based on language
+  const localize = (p) => {
+    if (lang !== 'en') return p;
+    const en = PROJECTS_EN[p.id];
+    if (!en) return p;
+    const stats = (p.stats || []).map((s, i) => ({
+      k: s.k,
+      v: en.stats?.[i]?.v ?? s.v,
+    }));
+    return {
+      ...p,
+      name: en.name ?? p.name,
+      location: en.location ?? p.location,
+      tagline: en.tagline ?? p.tagline,
+      description: en.description ?? p.description,
+      highlights: en.highlights ?? p.highlights,
+      stats,
+    };
+  };
+
+  const localizedProjects = useMemo(() => PROJECTS.map(localize), [lang]);
+
   const filtered = useMemo(() => {
-    if (activeCat === 'all') return PROJECTS;
-    return PROJECTS.filter((p) => p.category === activeCat);
-  }, [activeCat]);
+    if (activeCat === 'all') return localizedProjects;
+    return localizedProjects.filter((p) => p.category === activeCat);
+  }, [activeCat, localizedProjects]);
 
   const categoryCount = (id) =>
-    id === 'all' ? PROJECTS.length : PROJECTS.filter((p) => p.category === id).length;
+    id === 'all' ? localizedProjects.length : localizedProjects.filter((p) => p.category === id).length;
 
   const handleCardClick = (id) => {
     setExpandedId((cur) => (cur === id ? null : id));
-    // Smooth scroll into view
     setTimeout(() => {
       const el = document.getElementById(`project-${id}`);
       if (el) {
@@ -35,33 +59,31 @@ const Projects = () => {
 
   return (
     <div className="pt-[72px]">
-      {/* Hero */}
       <section
         className="asi-hero asi-grain"
         style={{ backgroundImage: `url(${HERO_IMAGES.projects})`, minHeight: '320px' }}
       >
         <div className="max-w-7xl mx-auto w-full px-5 lg:px-8 pb-12 pt-20">
           <h1 className="text-white font-bold text-5xl md:text-6xl tracking-tight text-right">
-            PROYECTOS
+            {t('projects.heroTitle')}
           </h1>
         </div>
       </section>
 
-      {/* Main content: vertical filter + projects */}
       <section className="bg-white asi-section">
         <div className="max-w-7xl mx-auto px-5 lg:px-8">
           <div className="grid lg:grid-cols-[280px_1fr] gap-10">
-            {/* Vertical filter */}
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <div className="mb-4">
                 <div className="text-xs font-semibold tracking-wider text-gray-500 uppercase mb-3">
-                  Categorías
+                  {t('projects.sidebarLabel')}
                 </div>
               </div>
               <nav className="flex flex-col gap-2">
                 {PROJECT_CATEGORIES.map((cat) => {
                   const Icon = CATEGORY_ICONS[cat.id];
                   const isActive = activeCat === cat.id;
+                  const label = t(`projects.categories.${cat.id}`) || cat.label;
                   return (
                     <button
                       key={cat.id}
@@ -77,7 +99,7 @@ const Projects = () => {
                     >
                       <span className="flex items-center gap-3">
                         <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[#1a2980]'}`} />
-                        <span className="text-sm font-semibold tracking-wider">{cat.label}</span>
+                        <span className="text-sm font-semibold tracking-wider">{label}</span>
                       </span>
                       <span
                         className={`text-xs font-bold px-2 py-0.5 rounded ${
@@ -92,23 +114,19 @@ const Projects = () => {
               </nav>
 
               <div className="mt-8 p-5 bg-[#f6f7fb] border-l-4 border-[#1a2980]">
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Selecciona una categoría para filtrar los proyectos y haz clic en cualquiera para
-                  ampliar su detalle completo.
-                </p>
+                <p className="text-xs text-gray-600 leading-relaxed">{t('projects.filterHint')}</p>
               </div>
             </aside>
 
-            {/* Projects list */}
             <div>
               <div className="flex items-baseline justify-between mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980]">
                   {activeCat === 'all'
-                    ? 'Todos los proyectos'
-                    : PROJECT_CATEGORIES.find((c) => c.id === activeCat)?.label}
+                    ? t('projects.allTitle')
+                    : t(`projects.categories.${activeCat}`)}
                 </h2>
                 <span className="text-sm text-gray-500">
-                  {filtered.length} proyecto{filtered.length !== 1 ? 's' : ''}
+                  {filtered.length} {filtered.length !== 1 ? t('projects.countPlural') : t('projects.countSingular')}
                 </span>
               </div>
 
@@ -119,15 +137,16 @@ const Projects = () => {
                     project={p}
                     expanded={expandedId === p.id}
                     onClick={() => handleCardClick(p.id)}
+                    t={t}
                   />
                 ))}
               </div>
 
-              {/* Expanded detail panel (full width below) */}
               {expandedId && (
                 <ExpandedDetail
-                  project={PROJECTS.find((p) => p.id === expandedId)}
+                  project={localizedProjects.find((p) => p.id === expandedId)}
                   onClose={() => setExpandedId(null)}
+                  t={t}
                 />
               )}
             </div>
@@ -138,8 +157,8 @@ const Projects = () => {
   );
 };
 
-const ProjectCard = ({ project, expanded, onClick }) => {
-  const catLabel = PROJECT_CATEGORIES.find((c) => c.id === project.category)?.label;
+const ProjectCard = ({ project, expanded, onClick, t }) => {
+  const catLabel = t(`projects.categories.${project.category}`);
   return (
     <button
       id={`project-${project.id}`}
@@ -174,7 +193,7 @@ const ProjectCard = ({ project, expanded, onClick }) => {
         </h3>
         <p className="text-sm text-gray-600 flex-1">{project.tagline}</p>
         <div className="mt-4 flex items-center text-[#1a2980] text-xs font-semibold tracking-wider">
-          {expanded ? 'CERRAR' : 'VER DETALLE'}
+          {expanded ? t('projects.close') : t('projects.detail')}
           <ChevronRight
             className={`w-4 h-4 ml-1 transition-transform ${expanded ? 'rotate-90' : 'group-hover:translate-x-1'}`}
           />
@@ -184,16 +203,16 @@ const ProjectCard = ({ project, expanded, onClick }) => {
   );
 };
 
-const ExpandedDetail = ({ project, onClose }) => {
+const ExpandedDetail = ({ project, onClose, t }) => {
   if (!project) return null;
-  const catLabel = PROJECT_CATEGORIES.find((c) => c.id === project.category)?.label;
+  const catLabel = t(`projects.categories.${project.category}`);
   return (
     <div className="mt-10 bg-[#f6f7fb] border-t-4 border-[#1a2980] animate-in fade-in slide-in-from-top-4 duration-300">
       <div className="p-6 md:p-10 relative">
         <button
           onClick={onClose}
           className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#1a2980] hover:border-[#1a2980] hover:text-white flex items-center justify-center transition-colors"
-          aria-label="Cerrar"
+          aria-label="Close"
         >
           <X className="w-4 h-4" />
         </button>
@@ -215,7 +234,6 @@ const ExpandedDetail = ({ project, onClose }) => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left: description + highlights */}
           <div>
             <div className="space-y-3 text-[15px] text-gray-700 leading-relaxed mb-6">
               {project.description.map((p, i) => (
@@ -224,7 +242,7 @@ const ExpandedDetail = ({ project, onClose }) => {
             </div>
 
             <h4 className="text-sm font-semibold tracking-wider text-[#1a2980] uppercase mb-3">
-              Puntos clave
+              {t('projects.keyPoints')}
             </h4>
             <ul className="space-y-2">
               {project.highlights.map((h, i) => (
@@ -236,7 +254,6 @@ const ExpandedDetail = ({ project, onClose }) => {
             </ul>
           </div>
 
-          {/* Right: stats + gallery */}
           <div>
             {project.stats && project.stats.length > 0 && (
               <div className="grid grid-cols-2 gap-3 mb-6">
