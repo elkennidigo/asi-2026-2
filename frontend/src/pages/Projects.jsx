@@ -1,14 +1,38 @@
-import React from 'react';
-import { HERO_IMAGES, RECENT_PROJECTS, TEMBO_GALLERY, DATACENTER_GALLERY, DEVELOPED_PROJECTS } from '../mock';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../components/ui/carousel';
+import React, { useState, useMemo } from 'react';
+import { MapPin, Calendar, ChevronRight, X, Server, Hotel, Wind, LayoutGrid } from 'lucide-react';
+import { HERO_IMAGES, PROJECTS, PROJECT_CATEGORIES } from '../mock';
+
+const CATEGORY_ICONS = {
+  all: LayoutGrid,
+  critical: Server,
+  hospitality: Hotel,
+  iaq: Wind
+};
 
 const Projects = () => {
+  const [activeCat, setActiveCat] = useState('all');
+  const [expandedId, setExpandedId] = useState(null);
+
+  const filtered = useMemo(() => {
+    if (activeCat === 'all') return PROJECTS;
+    return PROJECTS.filter((p) => p.category === activeCat);
+  }, [activeCat]);
+
+  const categoryCount = (id) =>
+    id === 'all' ? PROJECTS.length : PROJECTS.filter((p) => p.category === id).length;
+
+  const handleCardClick = (id) => {
+    setExpandedId((cur) => (cur === id ? null : id));
+    // Smooth scroll into view
+    setTimeout(() => {
+      const el = document.getElementById(`project-${id}`);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 110;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 50);
+  };
+
   return (
     <div className="pt-[72px]">
       {/* Hero */}
@@ -23,149 +47,226 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Recent Projects */}
+      {/* Main content: vertical filter + projects */}
       <section className="bg-white asi-section">
-        <div className="max-w-6xl mx-auto px-5 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
-            Proyectos más recientes
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            {RECENT_PROJECTS.map((p) => (
-              <a
-                key={p.id}
-                href={`#${p.id}`}
-                className="group"
-              >
-                <div className="asi-image-frame aspect-[4/3] bg-gray-100">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-full h-full object-cover"
+        <div className="max-w-7xl mx-auto px-5 lg:px-8">
+          <div className="grid lg:grid-cols-[280px_1fr] gap-10">
+            {/* Vertical filter */}
+            <aside className="lg:sticky lg:top-28 lg:self-start">
+              <div className="mb-4">
+                <div className="text-xs font-semibold tracking-wider text-gray-500 uppercase mb-3">
+                  Categorías
+                </div>
+              </div>
+              <nav className="flex flex-col gap-2">
+                {PROJECT_CATEGORIES.map((cat) => {
+                  const Icon = CATEGORY_ICONS[cat.id];
+                  const isActive = activeCat === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        setActiveCat(cat.id);
+                        setExpandedId(null);
+                      }}
+                      className={`group w-full text-left px-5 py-4 border transition-all duration-200 flex items-center justify-between ${
+                        isActive
+                          ? 'bg-[#1a2980] border-[#1a2980] text-white shadow-md'
+                          : 'bg-white border-gray-200 text-gray-700 hover:border-[#1a2980] hover:text-[#1a2980]'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[#1a2980]'}`} />
+                        <span className="text-sm font-semibold tracking-wider">{cat.label}</span>
+                      </span>
+                      <span
+                        className={`text-xs font-bold px-2 py-0.5 rounded ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-[#1a2980]/10 group-hover:text-[#1a2980]'
+                        }`}
+                      >
+                        {categoryCount(cat.id)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
+
+              <div className="mt-8 p-5 bg-[#f6f7fb] border-l-4 border-[#1a2980]">
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  Selecciona una categoría para filtrar los proyectos y haz clic en cualquiera para
+                  ampliar su detalle completo.
+                </p>
+              </div>
+            </aside>
+
+            {/* Projects list */}
+            <div>
+              <div className="flex items-baseline justify-between mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980]">
+                  {activeCat === 'all'
+                    ? 'Todos los proyectos'
+                    : PROJECT_CATEGORIES.find((c) => c.id === activeCat)?.label}
+                </h2>
+                <span className="text-sm text-gray-500">
+                  {filtered.length} proyecto{filtered.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-6">
+                {filtered.map((p) => (
+                  <ProjectCard
+                    key={p.id}
+                    project={p}
+                    expanded={expandedId === p.id}
+                    onClick={() => handleCardClick(p.id)}
                   />
-                </div>
-                <h3 className="text-center mt-4 text-gray-800 font-semibold group-hover:text-[#1a2980] transition-colors">
-                  {p.name}
-                </h3>
-              </a>
-            ))}
+                ))}
+              </div>
+
+              {/* Expanded detail panel (full width below) */}
+              {expandedId && (
+                <ExpandedDetail
+                  project={PROJECTS.find((p) => p.id === expandedId)}
+                  onClose={() => setExpandedId(null)}
+                />
+              )}
+            </div>
           </div>
         </div>
       </section>
+    </div>
+  );
+};
 
-      {/* Tembo Hotel Detail */}
-      <section id="tembo" className="bg-[#f6f7fb] asi-section">
-        <div className="max-w-6xl mx-auto px-5 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-3">Hotel TEMBO Barcelona</h2>
-          <p className="text-gray-500 italic mb-8">Soluciones de control fiables para operaciones sofisticadas.</p>
+const ProjectCard = ({ project, expanded, onClick }) => {
+  const catLabel = PROJECT_CATEGORIES.find((c) => c.id === project.category)?.label;
+  return (
+    <button
+      id={`project-${project.id}`}
+      onClick={onClick}
+      className={`group text-left bg-white border transition-all duration-300 overflow-hidden flex flex-col ${
+        expanded
+          ? 'border-[#1a2980] shadow-xl ring-2 ring-[#1a2980]/20'
+          : 'border-gray-200 hover:border-[#1a2980] hover:shadow-lg'
+      }`}
+    >
+      <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+        <img
+          src={project.cover}
+          alt={project.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute top-3 left-3 bg-[#1a2980] text-white text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-sm">
+          {catLabel}
+        </div>
+      </div>
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex items-center gap-3 text-xs text-gray-500 mb-2">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-3 h-3" /> {project.year}
+          </span>
+          <span className="flex items-center gap-1">
+            <MapPin className="w-3 h-3" /> {project.location}
+          </span>
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-[#1a2980] transition-colors">
+          {project.name}
+        </h3>
+        <p className="text-sm text-gray-600 flex-1">{project.tagline}</p>
+        <div className="mt-4 flex items-center text-[#1a2980] text-xs font-semibold tracking-wider">
+          {expanded ? 'CERRAR' : 'VER DETALLE'}
+          <ChevronRight
+            className={`w-4 h-4 ml-1 transition-transform ${expanded ? 'rotate-90' : 'group-hover:translate-x-1'}`}
+          />
+        </div>
+      </div>
+    </button>
+  );
+};
 
-          <div className="grid lg:grid-cols-2 gap-10">
-            <div className="space-y-4 text-gray-700 leading-relaxed text-[15px]">
-              <p>
-                El sector hotelero, motor para la economía de nuestro país, está en plena transformación digital y bajo
-                estrictos requerimientos de cumplimiento de sostenibilidad.
-              </p>
-              <p>
-                La competencia es global, así como los clientes. Además, el establecimiento debe adaptarse a exigencias
-                multiculturales y servicios múltiples.
-              </p>
-              <p>
-                Para este proyecto entregado en 2024, se estandarizó un cuadro de control para cada una de las 17 plantas
-                de manera que, a través de una red dedicada al control propia del edificio, se controlan unos
-                <strong> 2.500 puntos físicos</strong> y cerca de <strong>9.000 integrados</strong> de otros sistemas.
-                Controlando el clima de las 280 habitaciones y zonas comunes, integrando 5.000 puntos de iluminación y
-                todas las mediciones de energía. Separadamente, en el sótano e igualmente conectadas a la red, dos
-                subestaciones gestionan los suministros de ACS y CLIMA cuya fuente proviene de la red de calor y frío
-                del 22@ de Barcelona.
-              </p>
-            </div>
+const ExpandedDetail = ({ project, onClose }) => {
+  if (!project) return null;
+  const catLabel = PROJECT_CATEGORIES.find((c) => c.id === project.category)?.label;
+  return (
+    <div className="mt-10 bg-[#f6f7fb] border-t-4 border-[#1a2980] animate-in fade-in slide-in-from-top-4 duration-300">
+      <div className="p-6 md:p-10 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-[#1a2980] hover:border-[#1a2980] hover:text-white flex items-center justify-center transition-colors"
+          aria-label="Cerrar"
+        >
+          <X className="w-4 h-4" />
+        </button>
 
-            <div className="grid grid-cols-2 gap-3">
-              {TEMBO_GALLERY.map((src, i) => (
-                <div key={i} className={`asi-image-frame bg-gray-200 ${i === 0 ? 'row-span-2' : ''}`}>
-                  <img src={src} alt={`Tembo ${i + 1}`} className="w-full h-full object-cover" />
-                </div>
+        <div className="mb-6">
+          <span className="inline-block bg-[#1a2980] text-white text-[10px] font-bold tracking-wider px-2.5 py-1 mb-3">
+            {catLabel}
+          </span>
+          <h3 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-2">{project.name}</h3>
+          <p className="text-gray-600 italic">{project.tagline}</p>
+          <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
+            <span className="flex items-center gap-1.5">
+              <Calendar className="w-4 h-4" /> {project.year}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4" /> {project.location}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Left: description + highlights */}
+          <div>
+            <div className="space-y-3 text-[15px] text-gray-700 leading-relaxed mb-6">
+              {project.description.map((p, i) => (
+                <p key={i}>{p}</p>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Datacenter Detail */}
-      <section id="datacenter" className="bg-white asi-section">
-        <div className="max-w-6xl mx-auto px-5 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-8">DATACENTER</h2>
-
-          <div className="grid lg:grid-cols-2 gap-10">
-            <div className="space-y-4 text-gray-700 leading-relaxed text-[15px]">
-              <p>
-                ASI brinda soluciones completas desde la instalación y comisionado de elementos de campo, controladores
-                y software específico para instalaciones críticas como los data centers.
-              </p>
-              <p>
-                Esta instalación corresponde a un data center de <strong>9 MW</strong> construido bajo los estándares
-                internacionales de calidad y para un solo usuario. <strong>20.000 m²</strong>, con 2 niveles y 2.000 m² de
-                espacio para servidores, tres edificios de servicios y uno de oficinas. Con un total de
-                <strong> 3.000 puntos físicos</strong> y más de <strong>6.000 puntos de integración</strong>.
-              </p>
-              <p>
-                El proyecto total se finalizó en un año y el control se comisionó 4 meses tras su fecha de inicio de
-                instalación.
-              </p>
-              <p className="italic text-gray-600">
-                La clave del éxito está en planificar anticipadamente las necesidades y la correcta documentación
-                necesaria para la integración con los equipos de otros proveedores.
-              </p>
-              <p className="font-semibold text-[#1a2980]">Entregado a finales de 2024.</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              {DATACENTER_GALLERY.map((src, i) => (
-                <div key={i} className={`asi-image-frame bg-gray-200 ${i === 0 ? 'row-span-2' : ''}`}>
-                  <img src={src} alt={`Datacenter ${i + 1}`} className="w-full h-full object-cover" />
-                </div>
+            <h4 className="text-sm font-semibold tracking-wider text-[#1a2980] uppercase mb-3">
+              Puntos clave
+            </h4>
+            <ul className="space-y-2">
+              {project.highlights.map((h, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                  <span className="text-[#1a2980] font-bold mt-0.5">·</span>
+                  <span>{h}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-        </div>
-      </section>
 
-      {/* Developed Projects Carousel */}
-      <section className="bg-[#f6f7fb] asi-section">
-        <div className="max-w-6xl mx-auto px-5 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
-            Proyectos Desarrollados
-          </h2>
-
-          <Carousel opts={{ align: 'start', loop: true }} className="w-full">
-            <CarouselContent className="-ml-4">
-              {DEVELOPED_PROJECTS.map((proj, idx) => (
-                <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <div className="bg-white border border-gray-100 h-full flex flex-col hover:shadow-lg transition-shadow">
-                    <div className="asi-image-frame aspect-[16/9] bg-gray-100">
-                      <img src={proj.image} alt={proj.title} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <h3 className="text-[#1a2980] font-semibold text-base mb-3 leading-tight">
-                        {proj.title}
-                      </h3>
-                      <ul className="space-y-1.5 text-sm text-gray-700 flex-1">
-                        {proj.points.map((pt, j) => (
-                          <li key={j} className="flex gap-2">
-                            <span className="text-[#1a2980] font-bold">·</span>
-                            <span>{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+          {/* Right: stats + gallery */}
+          <div>
+            {project.stats && project.stats.length > 0 && (
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {project.stats.map((s, i) => (
+                  <div
+                    key={i}
+                    className="bg-white border border-gray-200 p-4 text-center hover:border-[#1a2980] transition-colors"
+                  >
+                    <div className="text-2xl font-bold text-[#1a2980]">{s.k}</div>
+                    <div className="text-xs text-gray-600 mt-1 uppercase tracking-wider">{s.v}</div>
                   </div>
-                </CarouselItem>
+                ))}
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-3">
+              {project.gallery.map((src, i) => (
+                <div
+                  key={i}
+                  className={`asi-image-frame bg-gray-200 ${
+                    project.gallery.length === 3 && i === 0 ? 'row-span-2 col-span-1' : ''
+                  }`}
+                >
+                  <img src={src} alt={`${project.name} ${i + 1}`} className="w-full h-full object-cover" />
+                </div>
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-5 bg-[#1a2980] text-white border-0 hover:bg-[#131f5e] hover:text-white" />
-            <CarouselNext className="hidden md:flex -right-5 bg-[#1a2980] text-white border-0 hover:bg-[#131f5e] hover:text-white" />
-          </Carousel>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

@@ -94,60 +94,121 @@ export const SENSOR_PRODUCTS = [
   }
 ];
 
-export const RECENT_PROJECTS = [
+export const PROJECT_CATEGORIES = [
+  { id: 'all', label: 'ALL' },
+  { id: 'critical', label: 'CRITICAL INSTALLATIONS' },
+  { id: 'hospitality', label: 'HOSPITALITY' },
+  { id: 'iaq', label: 'INDOOR QUALITY' }
+];
+
+export const PROJECTS = [
   {
     id: 'tembo',
-    name: 'TEMBO HOTEL - Barcelona',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.34.00-1-1256x1675.jpeg'
-  },
-  {
-    id: 'datacenter',
-    name: 'Datacenter - Madrid',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/img20240425094622-882x882.jpeg'
-  }
-];
-
-export const TEMBO_GALLERY = [
-  'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.34.00-1-1256x1675.jpg',
-  'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.37.12-661x881.jpg',
-  'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.37.14-882x662.jpg'
-];
-
-export const DATACENTER_GALLERY = [
-  'http://www.automaticsolutionsiberia.com/assets/images/img-20240229-wa0018-882x1176.jpg',
-  'http://www.automaticsolutionsiberia.com/assets/images/img-20240402-wa0016-882x663.jpg',
-  'http://www.automaticsolutionsiberia.com/assets/images/img20240425094622-882x882.jpg'
-];
-
-export const DEVELOPED_PROJECTS = [
-  {
-    title: 'Campus de la Universitat de Vic, UVIC (Cataluña)',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x341.jpg',
-    points: [
-      'Campus universitario.',
-      'WebCTRL- Scada ubicado en el CPD corporativo.',
-      'Atmósfera controlada en laboratorios.',
-      'IAQ (Temp/H%/CO2/VOC).',
-      'Gestión de energía.'
+    name: 'Hotel TEMBO — Barcelona',
+    category: 'hospitality',
+    year: '2024',
+    location: 'Barcelona, España',
+    tagline: 'Soluciones de control fiables para operaciones sofisticadas.',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.34.00-1-1256x1675.jpeg',
+    gallery: [
+      'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.34.00-1-1256x1675.jpg',
+      'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.37.12-661x881.jpg',
+      'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.37.14-882x662.jpg'
+    ],
+    description: [
+      'El sector hotelero, motor para la economía de nuestro país, está en plena transformación digital y bajo estrictos requerimientos de cumplimiento de sostenibilidad.',
+      'La competencia es global, así como los clientes. Además, el establecimiento debe adaptarse a exigencias multiculturales y servicios múltiples.',
+      'Para este proyecto entregado en 2024 se estandarizó un cuadro de control para cada una de las 17 plantas, de manera que a través de una red dedicada al control propia del edificio se controlan los sistemas del edificio.'
+    ],
+    stats: [
+      { k: '2.500', v: 'Puntos físicos' },
+      { k: '9.000', v: 'Puntos integrados' },
+      { k: '280', v: 'Habitaciones' },
+      { k: '17', v: 'Plantas' }
+    ],
+    highlights: [
+      'Cuadro de control estandarizado por planta.',
+      'Red dedicada de control propia del edificio.',
+      '5.000 puntos de iluminación integrados.',
+      'Todas las mediciones de energía monitorizadas.',
+      '2 subestaciones gestionan ACS y CLIMA desde la red de calor/frío del 22@ de Barcelona.'
     ]
   },
   {
-    title: 'Hotel Hampton by Hilton (Barcelona)',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x361.jpg',
-    points: [
-      'Hotel de 240 habitaciones.',
-      'WebCtrl v7.',
-      'Touch Screen HDMi.',
-      '1u. OFBBC + FIOs.',
-      '40 us. Belimo immersion sensors.',
-      '2 us. Danfoss thermal meters.'
+    id: 'datacenter-madrid',
+    name: 'Datacenter — Madrid',
+    category: 'critical',
+    year: '2024',
+    location: 'Madrid, España',
+    tagline: 'Instalación crítica de 9 MW para un único usuario.',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/img20240425094622-882x882.jpeg',
+    gallery: [
+      'http://www.automaticsolutionsiberia.com/assets/images/img-20240229-wa0018-882x1176.jpg',
+      'http://www.automaticsolutionsiberia.com/assets/images/img-20240402-wa0016-882x663.jpg',
+      'http://www.automaticsolutionsiberia.com/assets/images/img20240425094622-882x882.jpg'
+    ],
+    description: [
+      'ASI brinda soluciones completas desde la instalación y comisionado de elementos de campo, controladores y software específico para instalaciones críticas como los data centers.',
+      'Esta instalación corresponde a un data center de 9 MW construido bajo los estándares internacionales de calidad y para un solo usuario.',
+      'El proyecto total se finalizó en un año y el control se comisionó 4 meses tras su fecha de inicio de instalación. La clave del éxito está en planificar anticipadamente las necesidades y la correcta documentación para la integración con equipos de otros proveedores.'
+    ],
+    stats: [
+      { k: '9 MW', v: 'Potencia' },
+      { k: '20.000 m²', v: 'Superficie' },
+      { k: '3.000', v: 'Puntos físicos' },
+      { k: '6.000+', v: 'Puntos integración' }
+    ],
+    highlights: [
+      '2 niveles y 2.000 m² de espacio para servidores.',
+      'Tres edificios de servicios + uno de oficinas.',
+      'Comisionado 4 meses tras el inicio de instalación.',
+      'Integración con equipos multi-proveedor.',
+      'Entregado a finales de 2024.'
     ]
   },
   {
-    title: 'Control de temperatura de la instalación logística',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/kiaby-1-600x331.png',
-    points: [
-      'Plataforma logística en Tarragona 53.000 m².',
+    id: 'pharma',
+    name: 'Proyecto Farmacéutico',
+    category: 'critical',
+    year: '2023',
+    location: 'España',
+    tagline: 'Compatible con CFR 21 para entorno de producción farmacéutica.',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/pharma-600x375.png',
+    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/pharma-600x375.png'],
+    description: [
+      'Proyecto de control y monitorización para una planta farmacéutica de 20.000 m² con los más altos estándares de validación y trazabilidad.',
+      'Integración de múltiples fabricantes y sistemas legados en una sola plataforma WebCTRL.'
+    ],
+    stats: [
+      { k: '20.000 m²', v: 'Superficie' },
+      { k: 'CFR 21', v: 'Compatible' },
+      { k: 'Multi', v: 'Proveedores' }
+    ],
+    highlights: [
+      'Sensores validados de temperatura y humedad.',
+      'Integración de Daikin y Atlas Copco.',
+      'Integración del sistema antiguo Honeywell.',
+      'Finalización del sistema de alojamiento de TI global (estándar EE. UU.).'
+    ]
+  },
+  {
+    id: 'logistica-tarragona',
+    name: 'Plataforma Logística — Tarragona',
+    category: 'critical',
+    year: '2023',
+    location: 'Tarragona, España',
+    tagline: 'Control de temperatura para instalación logística de 53.000 m².',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/kiaby-1-600x331.png',
+    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/kiaby-1-600x331.png'],
+    description: [
+      'Control integral de HVAC para una plataforma logística de gran escala, con sensores ambientales redundantes que garantizan las condiciones óptimas de trabajo y almacenamiento.'
+    ],
+    stats: [
+      { k: '53.000 m²', v: 'Superficie' },
+      { k: '56', v: 'Unidades terminales' },
+      { k: '24/7', v: 'Monitorización' }
+    ],
+    highlights: [
       'Control HVAC (enfriadora-caldera).',
       '56 unidades terminales de control y monitorización.',
       'Sensores ambientales redundantes: condiciones de trabajo.',
@@ -155,24 +216,75 @@ export const DEVELOPED_PROJECTS = [
     ]
   },
   {
-    title: 'Proyecto IAQ y monitoreo de energía',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/euro-3-600x328.png',
-    points: [
-      'Edificio de oficinas de 5.600 m² dividido en 14 inquilinos — Sant Just (BARCELONA).',
-      'Supervisión del rendimiento de la producción de HVAC.',
-      'Compensación de servicios públicos y gestión de energía.',
-      'IAQ (Temp/H%/CO2/VOC).'
+    id: 'hampton',
+    name: 'Hotel Hampton by Hilton — Barcelona',
+    category: 'hospitality',
+    year: '2022',
+    location: 'Barcelona, España',
+    tagline: 'Hotel de 240 habitaciones con WebCTRL v7.',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x361.jpg',
+    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x361.jpg'],
+    description: [
+      'Proyecto de control de climatización y energía para un hotel Hampton by Hilton en Barcelona, integrando sensores Belimo y medidores térmicos Danfoss.'
+    ],
+    stats: [
+      { k: '240', v: 'Habitaciones' },
+      { k: 'v7', v: 'WebCTRL' },
+      { k: '40', v: 'Sensores Belimo' }
+    ],
+    highlights: [
+      'Touch Screen HDMi.',
+      '1u. OFBBC + FIOs.',
+      '40 us. Belimo immersion sensors.',
+      '2 us. Danfoss thermal meters.'
     ]
   },
   {
-    title: 'Proyecto farmacéutico',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/pharma-600x375.png',
-    points: [
-      'Proyecto compatible con CFR 21 para un área de 20.000 m².',
-      'Sensores validados de temperatura y humedad.',
-      'Integración de Daikin y Atlas Copco.',
-      'Integración del sistema antiguo Honeywell no validado.',
-      'Finalización del sistema de alojamiento de TI global (estándar de EE. UU.).'
+    id: 'uvic',
+    name: 'Campus Universitat de Vic (UVIC)',
+    category: 'iaq',
+    year: '2023',
+    location: 'Cataluña, España',
+    tagline: 'Campus universitario con atmósfera controlada en laboratorios.',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x341.jpg',
+    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x341.jpg'],
+    description: [
+      'Supervisión y control del campus universitario UVIC con WebCTRL/SCADA centralizado en el CPD corporativo. Control de atmósfera en laboratorios, calidad del aire interior y gestión energética global.'
+    ],
+    stats: [
+      { k: 'SCADA', v: 'WebCTRL' },
+      { k: 'IAQ', v: 'Temp/H%/CO2/VOC' },
+      { k: 'Multi', v: 'Edificios' }
+    ],
+    highlights: [
+      'Campus universitario completo.',
+      'WebCTRL-SCADA ubicado en el CPD corporativo.',
+      'Atmósfera controlada en laboratorios.',
+      'IAQ (Temp/H%/CO2/VOC).',
+      'Gestión de energía.'
+    ]
+  },
+  {
+    id: 'sant-just',
+    name: 'IAQ y Monitoreo de Energía — Sant Just',
+    category: 'iaq',
+    year: '2022',
+    location: 'Sant Just, Barcelona',
+    tagline: 'Edificio de oficinas multi-inquilino de 5.600 m².',
+    cover: 'http://www.automaticsolutionsiberia.com/assets/images/euro-3-600x328.png',
+    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/euro-3-600x328.png'],
+    description: [
+      'Proyecto de calidad del aire interior y monitoreo energético para un edificio de oficinas dividido en 14 inquilinos, con supervisión del rendimiento de HVAC y compensación de servicios públicos.'
+    ],
+    stats: [
+      { k: '5.600 m²', v: 'Superficie' },
+      { k: '14', v: 'Inquilinos' },
+      { k: 'IAQ', v: 'Monitorización' }
+    ],
+    highlights: [
+      'Supervisión del rendimiento de la producción de HVAC.',
+      'Compensación de servicios públicos y gestión de energía.',
+      'IAQ (Temp/H%/CO2/VOC).'
     ]
   }
 ];
