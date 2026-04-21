@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
-import { OFFICES } from '../mock';
+import { MapPin } from 'lucide-react';
+import { MAIN_OFFICE } from '../mock';
 
 const Footer = () => {
   return (
     <footer className="bg-[#0f1947] text-white">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
           <div className="mb-4">
             <img
@@ -32,30 +32,23 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold tracking-wider mb-4 uppercase">Oficina</h4>
-          <ul className="space-y-2 text-sm text-white/75">
-            {OFFICES.map((o) => (
-              <li key={o} className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-white/60" /> {o}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-sm font-semibold tracking-wider mb-4 uppercase">Contacto</h4>
-          <ul className="space-y-3 text-sm text-white/75">
-            <li className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-white/60" />
-              <a href="mailto:info@automaticsolutionsiberia.com" className="hover:text-white">
-                info@automaticsolutionsiberia.com
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-white/60" />
-              <a href="tel:+34900000000" className="hover:text-white">+34 900 000 000</a>
-            </li>
-          </ul>
+          <h4 className="text-sm font-semibold tracking-wider mb-4 uppercase">Dirección</h4>
+          <a
+            href={MAIN_OFFICE.mapsUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="flex items-start gap-3 text-sm text-white/80 hover:text-white group"
+          >
+            <MapPin className="w-5 h-5 text-white/70 group-hover:text-white flex-shrink-0 mt-0.5" />
+            <span className="leading-relaxed">
+              {MAIN_OFFICE.address}<br />
+              {MAIN_OFFICE.district}<br />
+              {MAIN_OFFICE.postalCode} {MAIN_OFFICE.city}, {MAIN_OFFICE.country}
+              <span className="block mt-2 text-xs text-white/60 underline underline-offset-2 group-hover:text-white">
+                Ver en Google Maps
+              </span>
+            </span>
+          </a>
         </div>
       </div>
 

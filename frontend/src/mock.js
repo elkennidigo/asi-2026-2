@@ -4,6 +4,23 @@ export const OFFICES = [
   'Barcelona'
 ];
 
+// Oficinas técnicas completas (se muestran en Home)
+export const TECHNICAL_OFFICES = [
+  'Madrid', 'Barcelona', 'Palma de Mallorca', 'Jaén', 'Girona', 'Lisboa'
+];
+
+// Dirección y ubicación de la oficina principal
+export const MAIN_OFFICE = {
+  address: 'Carrer de Monlau, 30',
+  district: 'Sant Andreu',
+  postalCode: '08027',
+  city: 'Barcelona',
+  country: 'España',
+  lat: 41.423829,
+  lng: 2.1905971,
+  mapsUrl: 'https://maps.app.goo.gl/KNWHtVgdMp88ycms9'
+};
+
 export const SERVICES = [
   'Plan & Spec: Projects demand creation.',
   'Systems and products technical support.',

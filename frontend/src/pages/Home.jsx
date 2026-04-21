@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Package, FolderKanban, Newspaper, Mail, CheckCircle2, Play } from 'lucide-react';
+import { ArrowRight, Package, FolderKanban, Newspaper, Mail, CheckCircle2, Play, MapPin } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
-import { SERVICES, PARTNERS, HERO_IMAGES } from '../mock';
+import { SERVICES, PARTNERS, HERO_IMAGES, TECHNICAL_OFFICES } from '../mock';
 import { Dialog, DialogContent, DialogTrigger } from '../components/ui/dialog';
 
 const CARDS = [
@@ -96,9 +96,9 @@ const Home = () => {
                   productos Automated Logic en España y Portugal.
                 </p>
                 <p>
-                  Junto a su propia red de integradores por la península ibérica ha conseguido tener una gran capilaridad con
-                  oficina técnica en <strong>Barcelona</strong>, desde donde puede afrontar proyectos de automatización y
-                  control de cualquier dimensión y dificultad.
+                  Junto a su propia red de integradores por la península ibérica ha conseguido tener una gran capilaridad, con
+                  oficinas técnicas en <strong>Madrid, Barcelona, Palma de Mallorca, Jaén, Girona y Lisboa</strong>, desde
+                  donde puede afrontar proyectos de automatización y control de cualquier dimensión y dificultad.
                 </p>
               </div>
             </div>
@@ -179,6 +179,37 @@ const Home = () => {
               )}
             </DialogContent>
           </Dialog>
+        </div>
+      </section>
+
+      {/* Oficinas técnicas */}
+      <section className="bg-white border-t border-gray-100 py-20">
+        <div className="max-w-6xl mx-auto px-5 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="inline-block px-3 py-1 bg-[#1a2980]/10 text-[#1a2980] text-xs font-semibold tracking-wider rounded mb-4">
+              PRESENCIA IBÉRICA
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2980] mb-3">
+              Oficinas técnicas
+            </h2>
+            <p className="text-gray-600 max-w-xl mx-auto">
+              Red propia de ingeniería con capilaridad en la península ibérica para atender proyectos en cualquier localización.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {TECHNICAL_OFFICES.map((office) => (
+              <div
+                key={office}
+                className="group bg-[#f6f7fb] hover:bg-[#1a2980] border border-gray-100 hover:border-[#1a2980] p-5 flex flex-col items-center justify-center text-center transition-all duration-300 cursor-default"
+              >
+                <MapPin className="w-6 h-6 text-[#1a2980] group-hover:text-white transition-colors mb-2" />
+                <span className="text-sm font-semibold text-gray-800 group-hover:text-white transition-colors">
+                  {office}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

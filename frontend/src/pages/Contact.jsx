@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import axios from 'axios';
+import { MapPin, Send, CheckCircle2, ExternalLink, Clock } from 'lucide-react';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
 import { Label } from '../components/ui/label';
 import { useToast } from '../hooks/use-toast';
-import { HERO_IMAGES, CONTACT_INFO, OFFICES } from '../mock';
+import { HERO_IMAGES, MAIN_OFFICE } from '../mock';
+
+const API_BASE = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const Contact = () => {
   const { toast } = useToast();
@@ -17,19 +20,35 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) {
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast({ title: 'Campos incompletos', description: 'Nombre, email y mensaje son obligatorios.' });
       return;
     }
     setSending(true);
-    // Mock submit
-    await new Promise((r) => setTimeout(r, 900));
-    setSending(false);
-    setSent(true);
-    toast({ title: 'Mensaje enviado', description: 'Gracias por contactar con nosotros.' });
-    setForm({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSent(false), 4000);
+    try {
+      await axios.post(`${API_BASE}/contact`, {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        subject: form.subject.trim(),
+        message: form.message.trim(),
+      });
+      setSent(true);
+      toast({ title: 'Mensaje enviado', description: 'Gracias por contactar con nosotros. Le responderemos a la mayor brevedad.' });
+      setForm({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSent(false), 6000);
+    } catch (err) {
+      const detail =
+        err?.response?.data?.detail?.[0]?.msg ||
+        err?.response?.data?.detail ||
+        'No se pudo enviar el mensaje. Intente de nuevo en unos minutos.';
+      toast({ title: 'Error al enviar', description: String(detail) });
+    } finally {
+      setSending(false);
+    }
   };
+
+  // Google Maps embed centered at the office coordinates
+  const embedSrc = `https://www.google.com/maps?q=${MAIN_OFFICE.lat},${MAIN_OFFICE.lng}&hl=es&z=16&output=embed`;
 
   return (
     <div className="pt-[72px]">
@@ -48,7 +67,7 @@ const Contact = () => {
       {/* Content */}
       <section className="bg-white asi-section">
         <div className="max-w-6xl mx-auto px-5 lg:px-8 grid lg:grid-cols-5 gap-12">
-          {/* Info */}
+          {/* Info + Map */}
           <div className="lg:col-span-2 space-y-6">
             <div>
               <h2 className="text-3xl font-bold text-[#1a2980] mb-3">Hablemos</h2>
@@ -58,48 +77,49 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-[#1a2980]/10 flex items-center justify-center rounded-sm">
-                  <Mail className="w-4 h-4 text-[#1a2980]" />
+            <div className="bg-[#f6f7fb] border border-gray-100 p-5">
+              <div className="flex items-start gap-3 mb-3">
+                <div className="w-10 h-10 bg-[#1a2980] flex items-center justify-center rounded-sm flex-shrink-0">
+                  <MapPin className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Email</div>
-                  <a
-                    href={`mailto:${CONTACT_INFO.email}`}
-                    className="text-[#1a2980] hover:underline font-medium"
-                  >
-                    {CONTACT_INFO.email}
-                  </a>
+                  <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">
+                    Oficina Técnica
+                  </div>
+                  <div className="text-gray-900 font-medium leading-relaxed">
+                    {MAIN_OFFICE.address}<br />
+                    {MAIN_OFFICE.district}<br />
+                    {MAIN_OFFICE.postalCode} {MAIN_OFFICE.city}, {MAIN_OFFICE.country}
+                  </div>
                 </div>
               </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-[#1a2980]/10 flex items-center justify-center rounded-sm">
-                  <Phone className="w-4 h-4 text-[#1a2980]" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Teléfono</div>
-                  <a href="tel:+34900000000" className="text-[#1a2980] hover:underline font-medium">
-                    {CONTACT_INFO.phone}
-                  </a>
-                </div>
-              </div>
+              <a
+                href={MAIN_OFFICE.mapsUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#1a2980] hover:underline mt-2"
+              >
+                VER EN GOOGLE MAPS <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
 
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Oficina técnica</h3>
-              <div className="grid grid-cols-1 gap-2">
-                {OFFICES.map((o) => (
-                  <div
-                    key={o}
-                    className="flex items-center gap-2 text-sm text-gray-700 bg-gray-50 px-3 py-2 rounded-sm border border-gray-100"
-                  >
-                    <MapPin className="w-3.5 h-3.5 text-[#1a2980]" />
-                    {o}
-                  </div>
-                ))}
-              </div>
+            <div className="flex items-start gap-3 text-sm text-gray-600">
+              <Clock className="w-4 h-4 text-[#1a2980] flex-shrink-0 mt-0.5" />
+              <span>Respuesta habitual en 24-48 horas laborables.</span>
+            </div>
+
+            {/* Map embed */}
+            <div className="overflow-hidden border border-gray-200 aspect-[4/3] w-full">
+              <iframe
+                title="Ubicación oficina ASI Barcelona"
+                src={embedSrc}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
           </div>
 
@@ -110,7 +130,7 @@ const Contact = () => {
 
               {sent && (
                 <div className="mb-6 flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-3 rounded-sm">
-                  <CheckCircle2 className="w-5 h-5" /> Gracias por contactar con nosotros.
+                  <CheckCircle2 className="w-5 h-5" /> Gracias por contactar con nosotros. Su mensaje ha sido enviado.
                 </div>
               )}
 
