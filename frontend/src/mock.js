@@ -231,10 +231,10 @@ export const CONTACT_INFO = {
 };
 
 export const HERO_IMAGES = {
-  home: 'https://images.unsplash.com/photo-1545150665-c5e1f7fbc25d?w=1920&q=80',
-  products: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80',
-  projects: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80',
-  news: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80',
-  contact: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80',
+  home: 'https://images.unsplash.com/photo-1634412114581-6376e49ef8e2?w=1920&q=80',
+  products: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=1920&q=80',
+  projects: 'https://images.unsplash.com/photo-1721244654394-36a7bc2da288?w=1920&q=80',
+  news: 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=1920&q=80',
+  contact: 'https://images.unsplash.com/photo-1708247186789-c009f7fd80ce?w=1920&q=80',
   techRoom: 'http://www.automaticsolutionsiberia.com/assets/images/webcontrol20and20guy-900x600.png'
 };

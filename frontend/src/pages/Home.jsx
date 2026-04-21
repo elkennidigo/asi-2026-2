@@ -63,9 +63,12 @@ const Home = () => {
                 href={p.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="opacity-90 hover:opacity-100 transition-opacity"
+                className="flex flex-col items-center gap-1 opacity-90 hover:opacity-100 transition-opacity"
               >
                 <img src={p.logo} alt={p.name} className="h-16 md:h-20 object-contain" />
+                {p.name === 'Automated Logic' && (
+                  <span className="text-[10px] text-gray-500 tracking-wider uppercase">A Carrier Company</span>
+                )}
               </a>
             ))}
           </div>

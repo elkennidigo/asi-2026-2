@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ShoppingCart } from 'lucide-react';
 import { Button } from './ui/button';
 
 const NAV_ITEMS = [
@@ -59,7 +59,11 @@ const Navbar = () => {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-5">
+          <button className="flex items-center gap-1.5 text-white text-sm font-semibold tracking-wider hover:text-white/80 transition-colors">
+            <ShoppingCart className="w-4 h-4" />
+            TIENDA
+          </button>
           <Button
             variant="outline"
             className="rounded-full border-white/80 text-[#1a2980] bg-white hover:bg-white/90 hover:text-[#131f5e] font-semibold text-xs px-5"
