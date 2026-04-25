@@ -332,19 +332,16 @@ export const NEWS_ITEMS = [
     id: 'var-eur-2024',
     date: '17-18 Septiembre 2024',
     title: 'VAR EUR COUNCIL AUTOMATED LOGIC',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/processed-13a77108-170d-44f5-be94-b003cbfbad35-002-1322x1083.jpeg',
+    image: '/news/var-eur-2024.jpeg',
     excerpt: 'Los pasados 17 y 18 de septiembre de 2024 la lista constituida de miembros del Consejo de ALC-EUR celebró la reunión anual para debatir y disfrutar de experiencias laborales.'
   },
   {
     id: 'savannah-2024',
     date: '19-22 Marzo 2024',
     title: 'Automated Logic Annual Dealer Meeting, Savannah',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/50d98c8c-49c7-4c9c-a2f7-498155033feb-2048x2048.jpg',
+    image: '/news/savannah-2024.jpg',
     gallery: [
-      'http://www.automaticsolutionsiberia.com/assets/images/50d98c8c-49c7-4c9c-a2f7-498155033feb-2048x2048.jpg',
-      'http://www.automaticsolutionsiberia.com/assets/images/a4531c70-71e1-4923-91a4-c58658fc5107-2048x2048.jpg',
-      'http://www.automaticsolutionsiberia.com/assets/images/bfabbeff-5be2-41bd-9ac9-e2b65da5fad4-2048x2048.jpg',
-      'http://www.automaticsolutionsiberia.com/assets/images/9eef4093-02cb-466c-aa62-456a0124b5dc-2048x2048.jpg'
+      '/news/savannah-2024.jpg'
     ],
     excerpt: 'Una vez más ALC nos invitó a reunirnos a varios dealers en Savannah, Georgia EEUU, entre los pasados días 19 y 22 de Marzo para darnos a conocer entre nosotros, ver los planes de la empresa, conocer nuevos productos y poner puntos en común disfrutando una vez más de una muy agradable localización, buena estancia y compañía.'
   },
@@ -352,21 +349,21 @@ export const NEWS_ITEMS = [
     id: 'cancun-2020',
     date: '18-20 Febrero 2020',
     title: 'Annual Dealer Meeting — Cancún',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/entrry-party-694x496.jpg',
+    image: '/news/cancun-2020.jpg',
     excerpt: 'Automatic Solutions Iberia asistió al Annual Dealer Meeting que Automated Logic organizó en Cancún del 18 al 20 de Febrero 2020. En un ambiente de trabajo distendido y en un entorno privilegiado ALC presentó las novedades de producto. Dentro del grupo Carrier, Automated Logic está siendo un motor en la innovación de soluciones para edificios. Como pudimos ver en detalle con OPTIFLEX Virtual Integrator, plataforma de integración de hasta 50.000 puntos BACnet/IP y Modbus TCP/IP que gestionados por WebCTRL ofrecen un enorme ahorro en costes de hardware.'
   },
   {
     id: 'barcelona-2018',
     date: '2018',
     title: 'Formación en Barcelona',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/img-20180918-113240-1160x870.jpg',
+    image: '/news/formacion-bcn-2018.jpg',
     excerpt: 'Tras el verano del 2018 hemos estado con un workshop compuesto por Markus Gebele, Regional Manager Central Europe Automated Logic Corporation y técnicos de Automatic Solutions Iberia para entrar en detalle y conocer cada vez mejor las novedades de WebControl.'
   },
   {
     id: 'constitucion-2018',
     date: '2018',
     title: 'Constitución de la empresa',
-    image: 'http://www.automaticsolutionsiberia.com/assets/images/img-20190901-wa0004-1160x476.jpg',
+    image: '/news/constitucion-2018.jpg',
     excerpt: 'Automatic Solutions Iberia, en la primavera del 2018, celebró su constitución con sus máximos representados en Europa Mr. Dave Wijn — Vice President Sales Europe y Caecilie Olive Hechtel Sales Director South Europe, ambos de Automated Logic. Se presentaron las novedades de producto europeo y los responsables de negocio y operaciones de Automatic Solutions Iberia pudimos actualizar y reforzar nuestros lazos en un ambiente de trabajo distendido.'
   }
 ];
