@@ -39,12 +39,12 @@ export const SERVICES = [
 export const PARTNERS = [
   {
     name: 'Automated Logic',
-    logo: 'http://www.automaticsolutionsiberia.com/assets/images/logo20puerta-574x233.png',
+    logo: '/partners/automated-logic.png',
     url: 'https://www.automatedlogic.com/en/'
   },
   {
     name: 'ISMA Controlli',
-    logo: 'http://www.automaticsolutionsiberia.com/assets/images/ismacontrolli-logo-hd-383x61.png',
+    logo: '/partners/isma.png',
     url: 'https://www.ismacontrolli.com/en/'
   }
 ];
@@ -159,11 +159,9 @@ export const PROJECTS = [
     year: '2024',
     location: 'Madrid, España',
     tagline: 'Instalación crítica de 9 MW para un único usuario.',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/img20240425094622-882x882.jpeg',
+    cover: '/projects/datacenter.jpg',
     gallery: [
-      'http://www.automaticsolutionsiberia.com/assets/images/img-20240229-wa0018-882x1176.jpg',
-      'http://www.automaticsolutionsiberia.com/assets/images/img-20240402-wa0016-882x663.jpg',
-      'http://www.automaticsolutionsiberia.com/assets/images/img20240425094622-882x882.jpg'
+      '/projects/datacenter.jpg'
     ],
     description: [
       'ASI brinda soluciones completas desde la instalación y comisionado de elementos de campo, controladores y software específico para instalaciones críticas como los data centers.',
@@ -264,8 +262,8 @@ export const PROJECTS = [
     year: '2023',
     location: 'Cataluña, España',
     tagline: 'Campus universitario con atmósfera controlada en laboratorios.',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x341.jpg',
-    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x341.jpg'],
+    cover: '/projects/uvic.jpg',
+    gallery: ['/projects/uvic.jpg'],
     description: [
       'Supervisión y control del campus universitario UVIC con WebCTRL/SCADA centralizado en el CPD corporativo. Control de atmósfera en laboratorios, calidad del aire interior y gestión energética global.'
     ],
@@ -377,7 +375,7 @@ export const CONTACT_INFO = {
 };
 
 export const HERO_IMAGES = {
-  home: 'https://images.unsplash.com/photo-1634412114581-6376e49ef8e2?w=1920&q=80',
+  home: '/hero/home-bg.jpeg',
   products: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=1920&q=80',
   projects: 'https://images.unsplash.com/photo-1721244654394-36a7bc2da288?w=1920&q=80',
   news: 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=1920&q=80',

@@ -68,19 +68,20 @@ const Home = () => {
       {/* Partners */}
       <section className="bg-white py-16">
         <div className="max-w-5xl mx-auto px-5 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-around gap-10">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
             {PARTNERS.map((p) => (
               <a
                 key={p.name}
                 href={p.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="flex flex-col items-center gap-1 opacity-90 hover:opacity-100 transition-opacity"
+                className="flex items-center justify-center opacity-90 hover:opacity-100 transition-opacity h-24 w-64"
               >
-                <img src={p.logo} alt={p.name} className="h-16 md:h-20 object-contain" />
-                {p.name === 'Automated Logic' && (
-                  <span className="text-[10px] text-gray-500 tracking-wider uppercase">A Carrier Company</span>
-                )}
+                <img
+                  src={p.logo}
+                  alt={p.name}
+                  className="max-h-full max-w-full object-contain"
+                />
               </a>
             ))}
           </div>

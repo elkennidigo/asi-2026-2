@@ -3,17 +3,13 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [L]
-
 AddType image/x-icon .ico
-AddType application/manifest+json .webmanifest
-
-<FilesMatch "\.(js|css|woff2?|ttf|eot|svg|jpg|jpeg|png|gif|webp|ico)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
+<FilesMatch "\.(js|css|woff2?|jpg|jpeg|png|gif|webp|ico|svg)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
 </FilesMatch>
 <FilesMatch "\.html$">
-    Header set Cache-Control "no-cache, must-revalidate"
+  Header set Cache-Control "no-cache, must-revalidate"
 </FilesMatch>
-
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
 </IfModule>
