@@ -91,7 +91,7 @@ const Projects = () => {
                         setActiveCat(cat.id);
                         setExpandedId(null);
                       }}
-                      className={`group w-full text-left px-5 py-4 border transition-all duration-200 flex items-center justify-between ${
+                      className={`group w-full text-left px-5 py-4 border transition-all duration-200 flex items-center ${
                         isActive
                           ? 'bg-[#1a2980] border-[#1a2980] text-white shadow-md'
                           : 'bg-white border-gray-200 text-gray-700 hover:border-[#1a2980] hover:text-[#1a2980]'
@@ -100,13 +100,6 @@ const Projects = () => {
                       <span className="flex items-center gap-3">
                         <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[#1a2980]'}`} />
                         <span className="text-sm font-semibold tracking-wider">{label}</span>
-                      </span>
-                      <span
-                        className={`text-xs font-bold px-2 py-0.5 rounded ${
-                          isActive ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-[#1a2980]/10 group-hover:text-[#1a2980]'
-                        }`}
-                      >
-                        {categoryCount(cat.id)}
                       </span>
                     </button>
                   );
@@ -125,9 +118,6 @@ const Projects = () => {
                     ? t('projects.allTitle')
                     : t(`projects.categories.${activeCat}`)}
                 </h2>
-                <span className="text-sm text-gray-500">
-                  {filtered.length} {filtered.length !== 1 ? t('projects.countPlural') : t('projects.countSingular')}
-                </span>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-6">

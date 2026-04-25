@@ -127,9 +127,9 @@ export const PROJECTS = [
     year: '2024',
     location: 'Barcelona, España',
     tagline: 'Soluciones de control fiables para operaciones sofisticadas.',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.34.00-1-1256x1675.jpeg',
+    cover: '/projects/tembo.jpeg',
     gallery: [
-      'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.34.00-1-1256x1675.jpg',
+      '/projects/tembo.jpeg',
       'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.37.12-661x881.jpg',
       'http://www.automaticsolutionsiberia.com/assets/images/whatsapp-image-2025-02-18-at-20.37.14-882x662.jpg'
     ],
@@ -191,8 +191,8 @@ export const PROJECTS = [
     year: '2023',
     location: 'España',
     tagline: 'Compatible con CFR 21 para entorno de producción farmacéutica.',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/pharma-600x375.png',
-    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/pharma-600x375.png'],
+    cover: '/projects/pharma.png',
+    gallery: ['/projects/pharma.png'],
     description: [
       'Proyecto de control y monitorización para una planta farmacéutica de 20.000 m² con los más altos estándares de validación y trazabilidad.',
       'Integración de múltiples fabricantes y sistemas legados en una sola plataforma WebCTRL.'
@@ -216,8 +216,8 @@ export const PROJECTS = [
     year: '2023',
     location: 'Tarragona, España',
     tagline: 'Control de temperatura para instalación logística de 53.000 m².',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/kiaby-1-600x331.png',
-    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/kiaby-1-600x331.png'],
+    cover: '/projects/tarragona.png',
+    gallery: ['/projects/tarragona.png'],
     description: [
       'Control integral de HVAC para una plataforma logística de gran escala, con sensores ambientales redundantes que garantizan las condiciones óptimas de trabajo y almacenamiento.'
     ],
@@ -240,8 +240,8 @@ export const PROJECTS = [
     year: '2022',
     location: 'Barcelona, España',
     tagline: 'Hotel de 240 habitaciones con WebCTRL v7.',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x361.jpg',
-    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/imagen-16-7-24-a-las-9.48-600x361.jpg'],
+    cover: '/projects/hampton.jpg',
+    gallery: ['/projects/hampton.jpg'],
     description: [
       'Proyecto de control de climatización y energía para un hotel Hampton by Hilton en Barcelona, integrando sensores Belimo y medidores térmicos Danfoss.'
     ],
@@ -289,8 +289,8 @@ export const PROJECTS = [
     year: '2022',
     location: 'Sant Just, Barcelona',
     tagline: 'Edificio de oficinas multi-inquilino de 5.600 m².',
-    cover: 'http://www.automaticsolutionsiberia.com/assets/images/euro-3-600x328.png',
-    gallery: ['http://www.automaticsolutionsiberia.com/assets/images/euro-3-600x328.png'],
+    cover: '/projects/sant-just.png',
+    gallery: ['/projects/sant-just.png'],
     description: [
       'Proyecto de calidad del aire interior y monitoreo energético para un edificio de oficinas dividido en 14 inquilinos, con supervisión del rendimiento de HVAC y compensación de servicios públicos.'
     ],
